@@ -1,0 +1,10 @@
+---
+import { getCatalogs } from "../lib/scraper";
+import Category from "./Category.astro";
+
+const catalogs = await getCatalogs();
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  {catalogs.map((catalog) => <Category catalog={catalog} />)}
+</div>

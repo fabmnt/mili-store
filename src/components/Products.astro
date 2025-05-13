@@ -1,0 +1,21 @@
+---
+import { getProducts } from "../lib/scraper";
+import Product from "./Product.astro";
+
+interface Props {
+  slug: string;
+  id: string;
+}
+
+const { slug, id } = Astro.props;
+
+if (!slug || !id) {
+  throw new Error("Slug and id are required");
+}
+
+const products = await getProducts(slug, id);
+---
+
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  {products.map((product) => <Product product={product} />)}
+</div>

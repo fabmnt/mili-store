@@ -1,0 +1,27 @@
+---
+import type { Product } from '../lib/scraper'
+
+interface Props {
+  product: Product
+}
+
+const { product } = Astro.props
+---
+
+<a href={product.url} target="_blank" class="block h-full hover:-translate-y-2 transition-all duration-300 w-full shadow-lg">
+  <article
+    class="flex flex-col gap-4 w-full bg-white rounded border border-[#E5E5E5] h-full"
+  >
+    <div class="w-full h-[200px] md:h-[220px] lg:h-[264px] max-h-[200px] md:max-h-[220px] lg:max-h-[264px]">
+      <img
+        src={product.imgUrl}
+        alt={product.name}
+        class="w-full max-w-full h-[200px] md:h-[220px] lg:h-[264px] object-cover border-b border-[#E5E5E5]"
+      />
+    </div>
+    <div class="p-4">
+      <h2 class="font-medium">{product.name}</h2>
+      <p>{product.price}</p>
+    </div>
+  </article>
+</a>

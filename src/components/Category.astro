@@ -1,0 +1,29 @@
+---
+import type { Catalog } from "../lib/scraper";
+
+interface Props {
+  catalog: Catalog;
+}
+
+const { catalog } = Astro.props;
+const { slug, url } = catalog;
+const id = (url.split("/").pop() ?? "").split("?")[0] ?? "";
+---
+
+<a href={`/${slug}/${id}?title=${catalog.title}`} target="_blank" class="block h-full hover:-translate-y-2 transition-all duration-300 w-full shadow-lg">
+  <article
+    class="flex flex-col gap-4 w-full bg-white rounded border border-[#E5E5E5] h-full"
+  >
+    <div class="w-full h-[264px] max-h-[264px]">
+      <img
+        src={catalog.imgUrl}
+        alt={catalog.title}
+        class="w-full max-w-full h-[264px] object-cover"
+      />
+    </div>
+    <div class="p-4">
+      <h2 class="font-medium">{catalog.title}</h2>
+      <p>{catalog.totalItems}</p>
+    </div>
+  </article>
+</a>
