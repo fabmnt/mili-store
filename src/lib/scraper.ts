@@ -1,4 +1,5 @@
-import { chromium, type Page } from "playwright";
+import { chromium, type Page } from "playwright-core";
+import chromiumBinary from "@sparticuz/chromium";
 
 export interface Catalog {
   title: string;
@@ -35,10 +36,10 @@ export async function infiniteScroll(page: Page, itemSelector: string) {
     }
     await page.evaluate(() => {
       // smooth scroll
-      const height = document.body.scrollHeight
+      const height = document.body.scrollHeight;
       window.scrollTo({
         top: height - height * 0.1,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     });
 
@@ -48,11 +49,14 @@ export async function infiniteScroll(page: Page, itemSelector: string) {
 }
 
 export async function getCatalogs() {
+  const executablePath = await chromiumBinary.executablePath();
   const browser = await chromium.launch({
-    args: ["--start-maximized"],
+    args: chromiumBinary.args,
+    executablePath,
+    headless: true,
   });
   const context = await browser.newContext({
-    viewport: null
+    viewport: null,
   });
   const page = await context.newPage();
   await page.goto("https://quicksell.co/w/angymalu/y3a");
@@ -87,11 +91,14 @@ export async function getCatalogs() {
 }
 
 export async function getProducts(slug: string, id: string) {
+  const executablePath = await chromiumBinary.executablePath();
   const browser = await chromium.launch({
-    args: ["--start-maximized"],
+    args: chromiumBinary.args,
+    executablePath,
+    headless: true,
   });
   const context = await browser.newContext({
-    viewport: null
+    viewport: null,
   });
   const page = await context.newPage();
   await page.goto(`https://quicksell.co/s/angymalu/${slug}/${id}`);
@@ -107,12 +114,12 @@ export async function getProducts(slug: string, id: string) {
   const products: Product[] = [];
 
   for (const product of $products) {
-    const name = await product.getAttribute('title') ?? ''
-    const $price = await product.$('.price')
-    const price = await $price?.textContent() ?? ''
-    const $img = await product.$('link[itemprop="image"]')
-    const imgUrl = await $img?.getAttribute('href') ?? ''
-    const url = await product.getAttribute('href') ?? ''
+    const name = (await product.getAttribute("title")) ?? "";
+    const $price = await product.$(".price");
+    const price = (await $price?.textContent()) ?? "";
+    const $img = await product.$('link[itemprop="image"]');
+    const imgUrl = (await $img?.getAttribute("href")) ?? "";
+    const url = (await product.getAttribute("href")) ?? "";
 
     products.push({ name, price, imgUrl, url });
   }
