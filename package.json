@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "preinstall": "npx playwright install chromium"
+    "preinstall": "npx playwright install"
   },
   "dependencies": {
     "@astrojs/vercel": "^8.1.4",
