@@ -1,5 +1,4 @@
-import { chromium, type Page } from "playwright-core";
-import chromiumBinary from "@sparticuz/chromium";
+import { chromium, type Page } from "playwright";
 
 export interface Catalog {
   title: string;
@@ -49,10 +48,7 @@ export async function infiniteScroll(page: Page, itemSelector: string) {
 }
 
 export async function getCatalogs() {
-  const executablePath = await chromiumBinary.executablePath();
   const browser = await chromium.launch({
-    args: chromiumBinary.args,
-    executablePath,
     headless: true,
   });
   const context = await browser.newContext({
@@ -91,10 +87,7 @@ export async function getCatalogs() {
 }
 
 export async function getProducts(slug: string, id: string) {
-  const executablePath = await chromiumBinary.executablePath();
   const browser = await chromium.launch({
-    args: chromiumBinary.args,
-    executablePath,
     headless: true,
   });
   const context = await browser.newContext({
