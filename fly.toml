@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for mili-store on 2025-05-13T21:04:33Z
+# fly.toml app configuration file generated for mili-store on 2025-05-13T21:15:00Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -9,7 +9,7 @@ primary_region = 'mia'
 [build]
 
 [http_service]
-  internal_port = 4321
+  internal_port = 80
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
